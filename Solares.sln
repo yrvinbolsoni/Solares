@@ -33,6 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting.IOC", "CrossCu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solares", "Solares\Solares.csproj", "{EB7F7CD7-8671-4D86-A2B7-A135AA3E9C6E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99E7F6E2-45C2-427E-B916-F6428B96F9FA}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
