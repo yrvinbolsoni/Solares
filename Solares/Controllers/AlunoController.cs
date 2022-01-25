@@ -15,7 +15,7 @@ namespace Solares.Controllers
     {
         private readonly IApplicationServiceAluno _applicationServiceAluno;
 
-        public AlunoController(IApplicationServiceAluno  ApplicationServiceAluno)
+        public AlunoController(IApplicationServiceAluno ApplicationServiceAluno)
         {
             _applicationServiceAluno = ApplicationServiceAluno;
         }
@@ -44,11 +44,11 @@ namespace Solares.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public ActionResult<IEnumerable<string>> GetAllPag(int skip = 0 , int take = 10)
+        public ActionResult<IEnumerable<string>> GetAllPag(int skip = 0, int take = 10)
         {
             try
             {
-                return Ok(_applicationServiceAluno.GetAllPag(skip , take));
+                return Ok(_applicationServiceAluno.GetAllPag(skip, take));
 
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace Solares.Controllers
             try
             {
                 var aluno = _applicationServiceAluno.GetById(Id);
-                return aluno.Id > 0 ? Ok(aluno) : NotFound();
+                return aluno.Id > 0 ? Ok(aluno) : NotFound("Nao encontrado");
             }
             catch (Exception ex)
             {
@@ -87,14 +87,20 @@ namespace Solares.Controllers
         {
             try
             {
-                if (alunoDTO == null)
-                    return NotFound();
-
-                if (alunoDTO.Id > 0)
-                    return BadRequest($"esperado que o id seja 0 ");
-
+                if (ModelState.IsValid)
+                {
+                    if (alunoDTO == null)
+                        return NotFound();
+                    if (alunoDTO.Id > 0)
+                        return BadRequest($"esperado que o id seja 0 ");
                     _applicationServiceAluno.Add(alunoDTO);
-                return Ok("Aluno Cadastrado com sucesso!");
+                    return Ok("Aluno Cadastrado com sucesso!");
+                }
+                else
+                {
+                    return BadRequest($"Algo deu errado");
+                }
+
             }
             catch (Exception ex)
             {
@@ -115,11 +121,18 @@ namespace Solares.Controllers
         {
             try
             {
-                if (alunoDTO == null)
-                    return NotFound();
+                if (ModelState.IsValid)
+                {
+                    if (alunoDTO == null)
+                        return NotFound();
 
-                _applicationServiceAluno.Update(alunoDTO);
-                return Ok("Aluno Atualizado com sucesso!");
+                    _applicationServiceAluno.Update(alunoDTO);
+                    return Ok("Aluno Atualizado com sucesso!");
+                }
+                else
+                {
+                    return BadRequest($"Algo deu errado");
+                }
             }
             catch (Exception ex)
             {
@@ -137,7 +150,7 @@ namespace Solares.Controllers
             try
             {
                 if (alunoDTO == null)
-                    return NotFound();
+                    return NotFound("Nao encontrado");
 
                 _applicationServiceAluno.Remove(alunoDTO);
 

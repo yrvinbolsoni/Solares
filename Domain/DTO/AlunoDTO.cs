@@ -13,9 +13,13 @@ namespace Domain.DTO
     {
         [JsonIgnore]
         public int Id { get; set; }
+        [Required]
         public String Nome { get; set; }
+
+        [Required]
         public string Endereco { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         public DateTime DatNascimento { get; set; }
 
