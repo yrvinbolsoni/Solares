@@ -92,7 +92,7 @@ namespace Solares.Controllers
                     if (alunoDTO == null)
                         return NotFound();
                     if (alunoDTO.Id > 0)
-                        return BadRequest($"esperado que o id seja 0 ");
+                        return BadRequest($"esperado que o id seja 0 __");
                     _applicationServiceAluno.Add(alunoDTO);
                     return Ok("Aluno Cadastrado com sucesso!");
                 }
